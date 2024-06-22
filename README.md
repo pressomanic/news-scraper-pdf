@@ -20,7 +20,7 @@ Installation nécessaire :
 
 ## Installation
 1. Ouvrir un terminal.
-2. Récupérer le projet. `git clone`
+2. Récupérer le projet. `git clone https://github.com/pressomanic/news-scraper.git`
 3. Se placer dans le répertoire du projet. `cd news-scraper`
 4. Construire le projet avec venv. Recommandé pour tester. [Option 1]
    1. Créer le venv. `python3 -m venv venv`
@@ -95,7 +95,7 @@ $ news-scraper -e .env -o my/specific/folder monde
 $ news-scraper -e .env -n my/specific/nextcloud monde
 ```
 
-### Récupérer l'édition du Monde avec seulement les 3 premi
+### Récupérer l'édition du Monde avec seulement les 3 premières pages
 ```shell
 $ news-scraper -e .env -f 3 monde
 ```

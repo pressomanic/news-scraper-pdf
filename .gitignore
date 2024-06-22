@@ -1,3 +1,5 @@
 /.old/
 /.env
 /venv/
+/.idea/
+/news_scraper.egg-info/
