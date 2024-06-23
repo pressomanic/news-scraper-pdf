@@ -1,4 +1,4 @@
-# news-scraper 
+# news-scraper-pdf
 
 Ce script récupère la dernière édition depuis Europresse au format PDF.  
 Il vient palier à l'interface d'Europresse non optimisée pour lire facilement un journal. 
@@ -18,10 +18,10 @@ Installation nécessaire :
 * git
 * virtual env via `pip install virtualenv`
 
-## Installation
+## Installation via un build local
 1. Ouvrir un terminal.
-2. Récupérer le projet. `git clone https://github.com/pressomanic/news-scraper.git`
-3. Se placer dans le répertoire du projet. `cd news-scraper`
+2. Récupérer le projet. `git clone https://github.com/pressomanic/news-scraper-pdf.git`
+3. Se placer dans le répertoire du projet. `cd news-scraper-pdf`
 4. Construire le projet avec venv. Recommandé pour tester. [Option 1]
    1. Créer le venv. `python3 -m venv venv`
    2. Se sourcer sur venv. 
@@ -32,7 +32,7 @@ Installation nécessaire :
 5. Construire directement le projet avec la configuration globale python du système (no venv). [Option 2]
    1. Installer les requirements. `pip install -r requiements.txt`
    2. Créer un package pour être disponible directement dans le pip du venv. `pip install -e . ` 
-6. Le package est maintenant disponible localement dans pip. Tester avec `news-scraper -h` pour afficher l'aide.
+6. Le package est maintenant disponible localement dans pip. Tester avec `news-scraper-pdf -h` pour afficher l'aide.
 
 
 
@@ -41,8 +41,8 @@ Installation nécessaire :
 
 ### Squelette
 ```shell
-$ news-scraper --help                
-usage: news-scraper [-h] [-e ENV] [-f FIRST_PAGES] [-v] [-n NEXTCLOUD_PATH] [-o OUTPUT_PATH] source
+$ news-scraper-pdf --help                
+usage: news-scraper-pdf [-h] [-e ENV] [-f FIRST_PAGES] [-v] [-n NEXTCLOUD_PATH] [-o OUTPUT_PATH] source
 
 positional arguments:
   source                Source of media to find latest publication.
@@ -76,28 +76,42 @@ Le script essaye de trouver la meilleure correspondance, ici `monde` correspond 
 
 Dans le cas où le journal trouver ne correspond, il faut vérifier la syntaxe saisie et si possible de rajouter des détails (comme "monde, le").
 
+### Configuration du fichier env
+Le script a besoin d'avoir la configuration du compte BNF.  
+De même si l'envoie sur nextcloud est activé via l'option `-n`.  
+Ces configuration doivent être placées dans un fichier env. Ci-dessous un exemple :
+```text
+# Mandatory 
+BNF_LOGIN="your@email.fr"
+BNF_PASSWORD="your-password"
+
+# Optional to use nextcloud
+NEXTCLOUD_URL="https://your.private.nextcloud"
+NEXTCLOUD_USER="your-nextcloud-user"
+NEXTCLOUD_PASSWORD="your-nextcloud-password"
+```
 
 
 ## Exemples
 
 ### Récupérer l'édition du Monde
 ```shell
-$ news-scraper -e .env monde
+$ news-scraper-pdf -e .env monde
 ```
 
 ### Récupérer l'édition du Monde dans un dossier spécifique
 ```shell
-$ news-scraper -e .env -o my/specific/folder monde
+$ news-scraper-pdf -e .env -o my/specific/folder monde
 ```
 
 ### Récupérer l'édition du Monde pour l'envoyer dans un répertoire Nextcloud
 ```shell
-$ news-scraper -e .env -n my/specific/nextcloud monde
+$ news-scraper-pdf -e .env -n my/specific/nextcloud monde
 ```
 
 ### Récupérer l'édition du Monde avec seulement les 3 premières pages
 ```shell
-$ news-scraper -e .env -f 3 monde
+$ news-scraper-pdf -e .env -f 3 monde
 ```
 
 ## Disclaimer

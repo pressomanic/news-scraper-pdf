@@ -7,16 +7,23 @@ def read_requirements():
 
 
 setup(
-    name='news-scraper',
+    name='news-scraper-pdf',
     version='0.0.1',
+    description='Scrape news as PDF.',
+    long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
     packages=find_packages(),
     install_requires=read_requirements(),
     license='MIT',
-    author='',
-    description='',
+    author='pressomaniac',
     entry_points={
         'console_scripts': [
-            'news-scraper = src.get_edition:main'
+            'news-scraper-pdf = src.get_edition:main'
         ]
-    }
+    },
+    classifiers=[
+        'Programming Language :: Python :: 3',
+        'License :: OSI Approved :: MIT License',
+        'Operating System :: OS Independent',
+    ],
 )
