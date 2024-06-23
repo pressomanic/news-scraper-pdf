@@ -6,7 +6,7 @@ import time
 from io import BytesIO
 from random import randrange
 
-import PyPDF2
+import pypdf
 import nc_py_api
 from thefuzz import fuzz
 
@@ -50,7 +50,7 @@ def search_for_publication_page(driver, source_to_find):
 
 
 def merge_pdfs_from_memory(pdf_bytes_list):
-    merger = PyPDF2.PdfMerger()
+    merger = pypdf.PdfWriter()
     for pdf_bytes in pdf_bytes_list:
         pdf_stream = BytesIO(pdf_bytes)
         merger.append(pdf_stream)
@@ -172,10 +172,11 @@ def main():
     source = args.source
     first_pages = args.first_pages
     nextcloud_upload_path = args.nextcloud_path
-    env_values = dotenv_values(args.env)
+    env_values = args.env
     write_to_specific_path = args.output_path
 
     # Check input variables
+    config = None
     if env_values is not None:
         config = dotenv_values(args.env)
     else:
@@ -195,7 +196,7 @@ def main():
 
     # Open BNF Login
     start_time = time.time()
-    perform_connection_page(browser_driver, env_values)
+    perform_connection_page(browser_driver, config)
     time.sleep(2)
     logging.info("Connection done page to BNF done in {} s.".format(time.strftime("%S", time.gmtime(time.time() -
                                                                                                     start_time))))
@@ -249,7 +250,7 @@ def main():
     if nextcloud_upload_path is not None:
         default_write = False
         logging.info("Write into Nextcloud {}/{}".format(nextcloud_upload_path, filename))
-        write_to_nextcloud(merged_pdf_bytes, nextcloud_upload_path, filename, env_values)
+        write_to_nextcloud(merged_pdf_bytes, nextcloud_upload_path, filename, config)
 
     if write_to_specific_path is not None:
         default_write = False
