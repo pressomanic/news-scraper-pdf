@@ -1,24 +1,40 @@
 # news-scraper-pdf
 
 Ce script récupère la dernière édition depuis Europresse au format PDF.  
-Il vient palier à l'interface d'Europresse non optimisée pour lire facilement un journal. 
+Il vient palier à l'interface d'Europresse non optimisée pour lire facilement un journal.
 
 ## Description
 
 Il est nécessaire de posséder un compte BNF pour s'y connecter.  
 
-Le script est développé en python en basant sur Selenium.  
+Le script est développé en python en se basant sur Selenium.  
 Différentes options existent pour écrire le fichier PDF dans un dossier spécifique, ou directement dans un répertoire Nextcloud.
 
-## Pré-requis
+## Installation
 
-Installation nécessaire :
-* python3
-* pip
-* git
-* virtual env via `pip install virtualenv`
+### Installation via pip (recommandée)
 
-## Installation via un build local
+Méthode d'installation simple qui convient à un usage normal.
+
+> [!NOTE]
+> Pré-requis :
+> * python3
+> * pip
+
+Installation depuis pip :
+```shell
+pip install news-scraper-pdf
+```
+
+### Installation localement depuis git 
+
+> [!NOTE]
+> Pré-requis :
+> * python3
+> * pip
+> * git
+> * virtual env via `pip install virtualenv` (seulement avec un installation depuis git)
+
 1. Ouvrir un terminal.
 2. Récupérer le projet. `git clone https://github.com/pressomanic/news-scraper-pdf.git`
 3. Se placer dans le répertoire du projet. `cd news-scraper-pdf`
@@ -113,6 +129,9 @@ $ news-scraper-pdf -e .env -n my/specific/nextcloud monde
 ```shell
 $ news-scraper-pdf -e .env -f 3 monde
 ```
+
+## Liens
+* PYPI : https://pypi.org/project/news-scraper-pdf/
 
 ## Disclaimer
 
