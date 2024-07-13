@@ -1,6 +1,6 @@
 # news-scraper-pdf
 
-Ce script récupère la dernière édition depuis Europresse au format PDF.  
+Ce script récupère la dernière édition depuis Europresse au format PDF avec un compte BNF.  
 Il vient palier à l'interface d'Europresse non optimisée pour lire facilement un journal.
 
 ## Description
@@ -64,8 +64,8 @@ positional arguments:
   source                Source of media to find latest publication.
 
 options:
-  -h, --help            show this help message and exit
-  -e ENV, --env ENV     Enable verbose mode
+  -h, --help            Show this help message and exit.
+  -e ENV, --env ENV     File with environment configuration.
   -f FIRST_PAGES, --first-pages FIRST_PAGES
                         Get the first N pages.
   -v, --verbose         Enable verbose mode.
@@ -77,9 +77,9 @@ options:
 
 ### Chercher un journal
 Le script utilise la valeur dans l'argument `source`.  
-Il essaye de trouver la meilleure correspondance parmi les journaux disponibles.  
+Il essaye de trouver la meilleure correspondance parmi les journaux disponibles.
 Dans les logs du script (output dans la console), le score est affichée par rapport à la `source`.  
-Exemple pour la `source` égale à `monde`. 
+Par exemple, si le script est démarré avec `source` égale à `monde`. 
 ```text
 Found better score for "01 net" with score 36.
 Found better score for "20 minutes" with score 40.
@@ -90,12 +90,12 @@ Publication identified for "Monde, Le" from the given input "monde"
 ```
 Le script essaye de trouver la meilleure correspondance, ici `monde` correspond à `monde, le` avec un score de 71.  
 
-Dans le cas où le journal trouver ne correspond, il faut vérifier la syntaxe saisie et si possible de rajouter des détails (comme "monde, le").
+Dans le cas où le journal trouvé ne correspond, il faut vérifier la syntaxe saisie et si possible de rajouter des détails (comme "monde, le").
 
 ### Configuration du fichier env
 Le script a besoin d'avoir la configuration du compte BNF.  
-De même si l'envoie sur nextcloud est activé via l'option `-n`.  
-Ces configuration doivent être placées dans un fichier env. Ci-dessous un exemple :
+De même, si l'envoie sur nextcloud est activé via l'option `-n`.  
+Ces configurations doivent être placées dans un fichier env. Ci-dessous un exemple :
 ```text
 # Mandatory 
 BNF_LOGIN="your@email.fr"
