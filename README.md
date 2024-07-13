@@ -58,19 +58,24 @@ pip install news-scraper-pdf
 ### Squelette
 ```shell
 $ news-scraper-pdf --help                
-usage: news-scraper-pdf [-h] [-e ENV] [-f FIRST_PAGES] [-v] [-n NEXTCLOUD_PATH] [-o OUTPUT_PATH] source
+usage: get_edition.py [-h] [-e ENV] [-f FIRST_PAGES] [-v] [-n NEXTCLOUD_PATH]
+                      [-o OUTPUT_PATH]
+                      source
 
 positional arguments:
   source                Source of media to find latest publication.
 
 options:
-  -h, --help            Show this help message and exit.
-  -e ENV, --env ENV     File with environment configuration.
+  -h, --help            show this help message and exit
+  -e ENV, --env ENV     Specify the file env variables.By default taking file
+                        referenced in os variable ENV_NEWS_SCRAPER.
   -f FIRST_PAGES, --first-pages FIRST_PAGES
-                        Get the first N pages.
+                        Get the first N pages. Useful to test a newspaper
+                        before getting all pages.
   -v, --verbose         Enable verbose mode.
   -n NEXTCLOUD_PATH, --nextcloud-path NEXTCLOUD_PATH
-                        Set Nextcloud upload directory path. Need to configure valid connection with --env
+                        Set Nextcloud upload directory path. Need to configure
+                        valid connection with --env
   -o OUTPUT_PATH, --output-path OUTPUT_PATH
                         Write file to a specific path.
 ```

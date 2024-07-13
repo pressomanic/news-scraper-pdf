@@ -155,10 +155,10 @@ def main():
     parser.add_argument("source", type=str,
                         help="Source of media to find latest publication.")
     parser.add_argument("-e", "--env", default=None, type=is_valid_file,
-                        required=False, help="Specifie env mode. "
-                                             "By default taking file refrenced in os variable ENV_NEWS_SCRAPER. ")
+                        required=False, help="Specify the file env variables."
+                                             "By default taking file referenced in os variable ENV_NEWS_SCRAPER. ")
     parser.add_argument("-f", "--first-pages", default=None, type=int, required=False,
-                        help="Get the first N pages.")
+                        help="Get the first N pages. Useful to test a newspaper before getting all pages.")
     parser.add_argument("-v", "--verbose", action="store_true", default=False, required=False,
                         help="Enable verbose mode.")
     parser.add_argument("-n", "--nextcloud-path", default=None, type=str, required=False,
