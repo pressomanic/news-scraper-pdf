@@ -8,7 +8,7 @@ def read_requirements():
 
 setup(
     name='news-scraper-pdf',
-    version='1.1.2',
+    version='1.1.3',
     description='Scrape news as PDF.',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
