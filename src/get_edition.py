@@ -13,10 +13,8 @@ from thefuzz import fuzz
 import requests
 import dateparser
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 from dotenv import dotenv_values
 import logging
@@ -190,7 +188,7 @@ def main():
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument('--log-level=3')
-    browser_driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
+    browser_driver = webdriver.Chrome(options=chrome_options)
 
     # Open BNF Login
     start_time = time.time()

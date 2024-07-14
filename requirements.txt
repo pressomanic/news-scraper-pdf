@@ -1,8 +1,7 @@
 dateparser==1.2.0
 nc_py_api==0.14.0
-pypdf==4.2.0
+pypdf==4.3.0
 python-dotenv==1.0.1
 Requests==2.32.3
 selenium==4.22.0
 thefuzz==0.22.1
-webdriver_manager==4.0.1
