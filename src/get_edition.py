@@ -1,5 +1,5 @@
 import argparse
-import locale
+
 import os
 import sys
 import time
@@ -148,9 +148,7 @@ def main():
 
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
 
-    # Global Parameters
-    locale.setlocale(locale.LC_ALL, 'fr_FR')
-
+    # Parse args
     parser = argparse.ArgumentParser()
     parser.add_argument("source", type=str,
                         help="Source of media to find latest publication.")
@@ -198,7 +196,7 @@ def main():
     start_time = time.time()
     perform_connection_page(browser_driver, config)
     time.sleep(2)
-    logging.info("Connection done page to BNF done in {} s.".format(time.strftime("%S", time.gmtime(time.time() -
+    logging.info("Connected to BNF in {} s.".format(time.strftime("%S", time.gmtime(time.time() -
                                                                                                     start_time))))
 
     # Open media search page
@@ -262,9 +260,9 @@ def main():
         write_on_local(merged_pdf_bytes, filename)
 
     logging.info(
-        "Script executed to get {} for date of {} in {} s.".format(source, date_parsed.date().strftime('%Y-%m-%d')
-                                                                   , time.strftime("%S", time.gmtime(time.time() -
-                                                                                                     global_start_time))))
+        "Script executed to get {} for date of {} in {} s."
+        .format(source, date_parsed.date().strftime('%Y-%m-%d'),
+                time.strftime("%S", time.gmtime(time.time() - global_start_time))))
 
     sys.exit(0)
 
