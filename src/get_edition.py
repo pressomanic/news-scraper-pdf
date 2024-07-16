@@ -188,6 +188,13 @@ def main():
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument('--log-level=3')
+    prefs = {
+        "download_restrictions": 3,
+        "download.default_directory": "/dev/null",
+    }
+    chrome_options.add_experimental_option(
+        "prefs", prefs
+    )
     browser_driver = webdriver.Chrome(options=chrome_options)
 
     # Open BNF Login
