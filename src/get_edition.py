@@ -1,23 +1,21 @@
 import argparse
-
+import logging
 import os
 import sys
 import time
 from io import BytesIO
 from random import randrange
 
-import pypdf
-import nc_py_api
-from thefuzz import fuzz
-
-import requests
 import dateparser
+import nc_py_api
+import pypdf
+import requests
+from dotenv import dotenv_values
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
-from selenium.webdriver.chrome.options import Options
-from dotenv import dotenv_values
-import logging
+from thefuzz import fuzz
 
 
 def perform_connection_page(driver, env):
@@ -142,7 +140,7 @@ def main():
     global_start_time = time.time()
 
     # Disable driver logs
-    os.environ['WDM_LOG'] = '0'
+    # os.environ['WDM_LOG'] = '0'
 
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
 
@@ -188,6 +186,8 @@ def main():
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument('--log-level=3')
+    # Force window size for the headless mode
+    chrome_options.add_argument("--window-size=1920,1080")
     prefs = {
         "download_restrictions": 3,
         "download.default_directory": "/dev/null",
@@ -202,7 +202,7 @@ def main():
     perform_connection_page(browser_driver, config)
     time.sleep(2)
     logging.info("Connected to BNF in {} s.".format(time.strftime("%S", time.gmtime(time.time() -
-                                                                                                    start_time))))
+                                                                                    start_time))))
 
     # Open media search page
     start_time = time.time()
@@ -265,8 +265,8 @@ def main():
         write_on_local(merged_pdf_bytes, filename)
 
     logging.info(
-        "Script executed to get {} for date of {} in {} s."
-        .format(source, date_parsed.date().strftime('%Y-%m-%d'),
+        "Script executed to get {} as {} for date of {} in {} s."
+        .format(source, filename, date_parsed.date().strftime('%Y-%m-%d'),
                 time.strftime("%S", time.gmtime(time.time() - global_start_time))))
 
     sys.exit(0)
