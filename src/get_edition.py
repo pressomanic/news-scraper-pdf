@@ -16,6 +16,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 from thefuzz import fuzz
+from importlib.metadata import version
+from packaging.version import Version
 
 
 def perform_connection_page(driver, env):
@@ -63,8 +65,13 @@ def open_pop_up_of_publication(driver, option_selected):
 
 
 def switch_to_popup_and_left_iframe(driver):
-    window_handle = driver.window_handles[1]
-    driver.switch_to.window(window_handle)
+    link_pdf_viewer = "https://nouveau-europresse-com.bnf.idm.oclc.org/webpages/Pdf/SearchResult.aspx"
+    pages = driver.window_handles
+    i = 0
+    while driver.current_url != link_pdf_viewer and i < len(pages):
+        driver.switch_to.window(pages[i])
+        i = i + 1
+    print(driver.page_source)
     driver.switch_to.frame("ListDoc")
 
 
@@ -136,6 +143,21 @@ def is_valid_file(check_file):
     return check_file
 
 
+def check_new_version(package_name):
+    package_version = version(package_name)
+    url = f"https://pypi.org/pypi/{package_name}/json"
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        latest_version = data.get('info', {}).get('version', 'Unknown')
+        if Version(package_version) < Version(latest_version):
+            logging.warning("New version available {}".format(latest_version))
+
+def get_package_version(package_name):
+    package_version = version(package_name)
+    logging.info("{} {}".format(package_name, package_version))
+
+
 def main():
     global_start_time = time.time()
 
@@ -146,7 +168,7 @@ def main():
 
     # Parse args
     parser = argparse.ArgumentParser()
-    parser.add_argument("source", type=str,
+    parser.add_argument("source", type=str, nargs='?',
                         help="Source of media to find latest publication.")
     parser.add_argument("-e", "--env", default=None, type=is_valid_file,
                         required=False, help="Specify the file env variables."
@@ -159,6 +181,8 @@ def main():
                         help="Set Nextcloud upload directory path. Need to configure valid connection with --env")
     parser.add_argument("-o", "--output-path", default=None, type=str, required=False,
                         help="Write file to a specific path.")
+    parser.add_argument("--version", action='store_true', default=False, required=False,
+                        help="Write file to a specific path.")
 
     args = parser.parse_args()
 
@@ -168,9 +192,20 @@ def main():
     nextcloud_upload_path = args.nextcloud_path
     env_values = args.env
     write_to_specific_path = args.output_path
+    version_package = args.version
+
+    # Check version
+    check_new_version("news-scraper-pdf")
+    if version_package:
+        get_package_version("news-scraper-pdf")
+        sys.exit(0)
+
+
 
     # Check input variables
     config = None
+    if source is None:
+        logging.error("Please give the source. Check help (--help).")
     if env_values is not None:
         config = dotenv_values(args.env)
     else:
